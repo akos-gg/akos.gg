@@ -1,0 +1,6 @@
+{
+  // must match the Worker name in the Cloudflare dashboard
+  "name": "akos-gg",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./dist" }
+}
