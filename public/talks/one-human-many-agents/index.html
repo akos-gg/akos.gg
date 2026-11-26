@@ -31,6 +31,14 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 .fig{position:relative}.fig .lab{position:absolute;font:700 2.6cqw Caveat,cursive;white-space:nowrap}
 .rows{display:grid;grid-template-columns:auto auto;gap:1.2cqw 4cqw;font-size:3.4cqw;text-align:left;align-items:baseline}
 .from{position:absolute;top:3cqw;right:4cqw;font:700 2.2cqw Caveat,cursive;color:var(--muted)}
+.flow{display:flex;align-items:flex-start;justify-content:center;gap:1cqw;text-align:center;max-width:92cqw}
+.flow div{display:flex;flex-direction:column;gap:.6cqw;width:11cqw}
+.flow b{font:700 3.2cqw Caveat,cursive;white-space:nowrap}
+.flow i{font:700 3.2cqw Caveat,cursive;font-style:normal;color:var(--orange)}
+.flow span{font:300 1.6cqw/1.3 Kalam,cursive;color:var(--muted)}
+.cols{display:flex;gap:7cqw;text-align:left;align-items:flex-start}
+.cols h3{margin:0 0 1cqw;font:700 2.6cqw Caveat,cursive;color:var(--muted)}
+.cols div{display:flex;flex-direction:column;gap:.8cqw;font-size:2.8cqw}
 .pyr{display:flex;flex-direction:column;align-items:center;gap:.8cqw}
 .pyr div{border:.25cqw solid var(--ink);border-radius:1.4cqw .6cqw 1.2cqw .5cqw;padding:.5cqw 0;font:700 3.2cqw Caveat,cursive}
 .pg{z-index:2;position:fixed;top:2.5vh;left:3vw;font:300 1.6vh Kalam;color:var(--muted);border-bottom:2px solid var(--hl)}
@@ -46,7 +54,7 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 <section class="slide">
   <img class="pic" src="img/33-cover.png" alt="A person juggles three planets on chaotic orbits while agents surf on them">
   <h1 style="font-size:5.5cqw">Software’s <span class="hl">Three-Body</span> Problem</h1>
-  <p class="sub">one human · many agents · quality · people · hiring</p>
+  <p class="sub">quality · people · hiring</p>
 </section>
 
 <section class="slide">
@@ -62,11 +70,6 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 </section>
 
 <section class="slide">
-  <img class="pic" src="img/04-cheap.png" alt="A robot pours code from a faucet for one cent">
-  <h1>Writing code is <span class="hl">cheap.</span></h1>
-</section>
-
-<section class="slide">
   <div class="fig"><img class="pic" src="img/34-orbits.png" alt="Three planets pulling on each other with tangled orbits">
     <span class="lab" style="right:100%;top:45%;font-size:3.4cqw"><span class="red">01</span> quality</span>
     <span class="lab" style="left:100%;top:12%;font-size:3.4cqw"><span class="red">02</span> people</span>
@@ -74,11 +77,22 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
   <h2>So what breaks?</h2>
 </section>
 
+<section class="slide">
+  <img class="pic" src="img/40-hero.png" alt="A black bean-shaped figure conducting a group of small blue robots" style="width:42cqw">
+  <h2>Hi, I'm <span class="hl">Ákos.</span></h2>
+  <p class="sub">Head of Engineering at Apexlab<br>I build on AWS and think a lot about how AI changes the way we work.</p>
+</section>
+
 <!-- ============ 01 QUALITY: build it right ============ -->
 <section class="slide sec">
   <div class="num">01</div><h1>Quality</h1>
   <p class="map"><b>01 quality</b> · 02 people · 03 hiring</p>
   <p class="pull">Building is cheap. Proving it works isn't.</p>
+</section>
+
+<section class="slide">
+  <img class="pic" src="img/04-cheap.png" alt="A robot pours code from a faucet for one cent">
+  <h1>Writing code is <span class="hl">cheap.</span></h1>
 </section>
 
 <section class="slide">
@@ -129,7 +143,7 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 </section>
 
 <section class="slide">
-  <h2>Tests come from the <span class="hl">spec,</span><br>not the code.</h2>
+  <h2>Write the tests from the <span class="hl">spec.</span></h2>
   <div style="display:flex;align-items:center;gap:3cqw">
     <span class="red hand" style="font-size:6cqw">spec</span>
     <div class="rows" style="gap:.8cqw 3cqw">
@@ -143,9 +157,9 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 <section class="slide">
   <h2>The test pyramid <span class="hl">flips.</span></h2>
   <div class="pyr">
-    <div style="width:50cqw;background:var(--hl)">UI · e2e</div>
-    <div style="width:34cqw;background:var(--peach)">integration</div>
-    <div style="width:14cqw;border-style:dashed;color:var(--muted)">unit</div>
+    <div style="width:50cqw;background:var(--hl)">UI · e2e <span class="muted" style="font-weight:400">← spec</span></div>
+    <div style="width:34cqw;background:var(--peach)">integration <span class="muted" style="font-weight:400">← spec</span></div>
+    <div style="width:18cqw;border-style:dashed;color:var(--muted)">unit ← code</div>
   </div>
   <p class="sub">test what the user sees, not what the agent wrote</p>
 </section>
@@ -157,6 +171,20 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 </section>
 
 <section class="slide">
+  <span class="from">at Apex</span>
+  <h2>How we <span class="hl">build</span> it.</h2>
+  <div class="flow">
+    <div><b>intent</b><span>for whom? done when?</span></div><i>→</i>
+    <div><b>spec</b><span>what we build</span></div><i>→</i>
+    <div><b>plan gate</b><span>risks · simplest version · proof per requirement</span></div><i>→</i>
+    <div><b>build</b><span>agents</span></div><i>→</i>
+    <div><b>verify</b><span>run the app · the change + 2 nearest flows</span></div><i>→</i>
+    <div><b>review</b><span>agents first · a human by risk</span></div>
+  </div>
+  <p class="sub"><span class="orange">↺ learn:</span> every repeated mistake becomes a rule</p>
+</section>
+
+<section class="slide">
   <img class="pic" src="img/11-trust.png" alt="A robot zooms past while a person builds a bridge card by card">
   <h2>Speed is free. <span class="red">Trust</span> is earned.</h2>
 </section>
@@ -165,7 +193,7 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 <section class="slide sec">
   <div class="num">02</div><h1>People</h1>
   <p class="map">01 quality · <b>02 people</b> · 03 hiring</p>
-  <p class="pull">Tests tell you it's built right. Only people tell you it's the right thing.</p>
+  <p class="pull">Forget the 10x developer. Meet the 1000x consultant.</p>
 </section>
 
 <section class="slide">
@@ -207,11 +235,6 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 </section>
 
 <section class="slide">
-  <img class="pic" src="img/13-yes-bot.png" alt="Robots applaud a bicycle with square wheels: You're absolutely right!">
-  <h2>Agents never <span class="hl">push back.</span></h2>
-</section>
-
-<section class="slide">
   <span class="from">← 01 quality</span>
   <img class="pic" src="img/14-feedback.png" alt="Peering into an empty mailbox with a cobweb">
   <h2>Where does <span class="hl">feedback</span> come from?</h2>
@@ -219,9 +242,8 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 </section>
 
 <section class="slide">
-  <img class="pic" src="img/16-junior.png" alt="A junior peeks over an empty chair; only agents inside a laptop">
-  <h2>Juniors learn by <span class="hl">watching.</span></h2>
-  <p class="sub" style="font-size:2.6cqw">Who do they watch now?</p>
+  <img class="pic" src="img/13-yes-bot.png" alt="Robots applaud a bicycle with square wheels: You're absolutely right!">
+  <h2>Agents never <span class="hl">push back.</span></h2>
 </section>
 
 <section class="slide">
@@ -237,9 +259,24 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
     <div><span class="orange">→</span> pair with humans</div>
     <div><span class="orange">→</span> demo what you built</div>
     <div><span class="orange">→</span> review as conversation</div>
-    <div><span class="orange">→</span> mentor juniors</div>
   </div>
   </div>
+</section>
+
+<section class="slide">
+  <span class="from">at Apex</span>
+  <h2>Buddies, <span class="hl">across projects.</span></h2>
+  <div class="cols">
+    <div><h3>buddy pairs</h3>
+      <span><span class="orange">→</span> review each other's work</span>
+      <span><span class="orange">→</span> give feedback</span>
+      <span><span class="orange">→</span> pairing sessions</span></div>
+    <div><h3>mentoring</h3>
+      <span><span class="orange">→</span> system design</span>
+      <span><span class="orange">→</span> customer communication</span>
+      <span><span class="orange">→</span> soft skills</span></div>
+  </div>
+  <p class="sub">still iterating</p>
 </section>
 
 <section class="slide">
@@ -256,7 +293,7 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 <section class="slide">
   <h2>Hire for <span class="hl">what breaks.</span></h2>
   <div class="rows">
-    <span><span class="red hand">01</span> quality</span><span>→ judgment · writing · testing</span>
+    <span><span class="red hand">01</span> quality</span><span>→ judgment · system design · testing</span>
     <span><span class="red hand">02</span> people</span><span>→ product sense · communication · push back</span>
   </div>
   <p class="sub">scored equally</p>
@@ -307,24 +344,33 @@ s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--m
 </section>
 
 <section class="slide">
-  <span class="from">← 02 people</span>
-  <div class="fig"><img class="pic" src="img/32-ladder.png" alt="A ladder with missing lower rungs, a junior at the bottom, a senior at the top">
-    <span class="lab red" style="right:100%;top:62%">missing rungs</span></div>
-  <h2>Where do <span class="hl">seniors</span> come from?</h2>
+  <span class="from">at Apex</span>
+  <h2>How we <span class="hl">hire.</span></h2>
+  <div class="cols">
+    <div><h3>we skip</h3>
+      <s>live coding</s><s>DSA</s><s>algorithm puzzles</s></div>
+    <div><h3>we test</h3>
+      <span><span class="orange">→</span> architecture &amp; system design</span>
+      <span><span class="orange">→</span> critical thinking</span>
+      <span><span class="orange">→</span> customer communication &amp; soft skills</span>
+      <span><span class="orange">→</span> learning a new domain fast</span></div>
+  </div>
+  <p class="sub">consultants, not just developers</p>
 </section>
 
 <section class="slide">
-  <span class="from">tests 01</span>
+  <span class="from">at Apex · tests 01</span>
   <img class="pic" src="img/23-interview.png" alt="An interviewer watches a candidate work with an agent">
   <p class="sub" style="font-size:2.6cqw">Allow AI in the interview.</p>
   <h2>Watch <span class="hl">how</span> they use it.</h2>
 </section>
 
 <section class="slide">
-  <span class="from">tests 02</span>
-  <img class="pic" src="img/31-present.png" alt="A candidate presents a small product to an interviewer">
+  <span class="from">at Apex · tests 02</span>
+  <img class="pic" style="height:26cqw" src="img/31-present.png" alt="A candidate presents a small product to an interviewer">
   <p class="sub">and then</p>
   <h2>Let them <span class="hl">present</span> it.</h2>
+  <p class="sub" style="font-size:2.6cqw">we play the customer</p>
 </section>
 
 <!-- ============ CLOSE ============ -->
