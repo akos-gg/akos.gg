@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software’s Three-Body Problem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBFAF5;--ink:#111;--muted:#5F5A50;--red:#E0392B;--orange:#F08A24;--blue:#2F6FD6;--hl:#D9E8F6;--peach:#F5DEB8}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink)}
+body{display:grid;place-items:center;overflow:hidden;font-family:Kalam,cursive}
+.deck{width:min(100vw,177.78vh);aspect-ratio:16/9;container-type:inline-size;position:relative}
+.slide{background:var(--paper);position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5cqw;padding:6cqw;box-sizing:border-box;text-align:center;opacity:0;visibility:hidden;transition:opacity .35s}
+.slide.on{opacity:1;visibility:visible}
+h1,h2,p{margin:0;font-weight:400}
+h1{font-size:6.5cqw;line-height:1.1}
+h2{font-size:4.2cqw;line-height:1.15}
+.huge{font-size:10cqw;line-height:1}
+.sub{font-size:2cqw;color:var(--muted);font-weight:300}
+.hl{background:linear-gradient(transparent 62%,var(--hl) 62%,var(--hl) 92%,transparent 92%);padding:0 .12em}
+.red{color:var(--red)}.orange{color:var(--orange)}.blue{color:var(--blue)}.muted{color:var(--muted)}
+.hand{font-family:Caveat,cursive;font-weight:700}
+s{text-decoration-color:var(--red);text-decoration-thickness:.12em;color:var(--muted)}
+.sec .num{font:700 14cqw/1 Caveat,cursive;color:var(--hl);-webkit-text-stroke:.15cqw var(--ink)}
+.map{font:700 2.4cqw Caveat,cursive;color:var(--muted)}
+.map b{color:var(--ink);background:var(--hl);padding:0 .3em}
+.pull{font-size:2.4cqw;color:var(--muted);font-weight:300;max-width:70cqw}
+.pic{height:30cqw;max-width:80cqw;object-fit:contain;mix-blend-mode:multiply}
+.ph{height:24cqw;width:42cqw;border:.25cqw dashed var(--muted);border-radius:1.5cqw;display:grid;place-items:center;font:300 2cqw Kalam,cursive;color:var(--muted)}
+.fig{position:relative}.fig .lab{position:absolute;font:700 2.6cqw Caveat,cursive;white-space:nowrap}
+.rows{display:grid;grid-template-columns:auto auto;gap:1.2cqw 4cqw;font-size:3.4cqw;text-align:left;align-items:baseline}
+.from{position:absolute;top:3cqw;right:4cqw;font:700 2.2cqw Caveat,cursive;color:var(--muted)}
+.pyr{display:flex;flex-direction:column;align-items:center;gap:.8cqw}
+.pyr div{border:.25cqw solid var(--ink);border-radius:1.4cqw .6cqw 1.2cqw .5cqw;padding:.5cqw 0;font:700 3.2cqw Caveat,cursive}
+.pg{z-index:2;position:fixed;top:2.5vh;left:3vw;font:300 1.6vh Kalam;color:var(--muted);border-bottom:2px solid var(--hl)}
+#notes{z-index:2;position:fixed;bottom:0;left:0;right:0;background:#111e;color:#fff;font:16px/1.4 system-ui;padding:12px 20px;display:none}
+body.notes #notes{display:block}
+</style>
+</head>
+<body>
+
+<div class="pg" id="pg"></div>
+<div id="notes"></div>
+
+<main class="deck">
+
+<!-- ============ INTRO: what changed ============ -->
+<section class="slide" data-n="Title. Three bodies (quality, people, hiring) pull on each other; there is no stable solution. Move one and the other two change course.">
+  <img class="pic" src="img/33-cover.png" alt="A person juggles three planets on chaotic orbits while agents surf on them">
+  <h1 style="font-size:5.5cqw">Software’s <span class="hl">Three-Body</span> Problem</h1>
+  <p class="sub">one human · many agents · quality · people · hiring</p>
+</section>
+
+<section class="slide" data-n="2020: five of us on one product. We reviewed each other's code, we talked to each other and to the customer all the time (the orange bubbles). Plant both seeds here.">
+  <p class="sub">2020</p>
+  <img class="pic" src="img/02-five.png" alt="Five people building one product together">
+  <h2>We used to be <span class="hl">five.</span></h2>
+</section>
+
+<section class="slide" data-n="2026: the same product, one human plus agents, 24/7. Not good or bad, just different. How is that possible?">
+  <p class="sub">2026</p>
+  <img class="pic" src="img/03-one.png" alt="One person with coffee while agents build the product">
+  <h2>Now it's <span class="hl">one.</span></h2>
+</section>
+
+<section class="slide" data-n="The cause of everything: writing code is heading to zero cost. So if building is cheap, what got expensive?">
+  <img class="pic" src="img/04-cheap.png" alt="A robot pours code from a faucet for one cent">
+  <h1>Writing code is <span class="hl">cheap.</span></h1>
+</section>
+
+<section class="slide" data-n="Three things got expensive: proving it works (quality), knowing what to build and growing as a person (people), and finding people who can do both (hiring). They pull on each other. The order is deliberate.">
+  <div class="fig"><img class="pic" src="img/34-orbits.png" alt="Three planets pulling on each other with tangled orbits">
+    <span class="lab" style="right:100%;top:45%;font-size:3.4cqw"><span class="red">01</span> quality</span>
+    <span class="lab" style="left:100%;top:12%;font-size:3.4cqw"><span class="red">02</span> people</span>
+    <span class="lab" style="left:100%;top:68%;font-size:3.4cqw"><span class="red">03</span> hiring</span></div>
+  <h2>So what breaks?</h2>
+</section>
+
+<!-- ============ 01 QUALITY: build it right ============ -->
+<section class="slide sec" data-n="Part 1: quality. Building it right.">
+  <div class="num">01</div><h1>Quality</h1>
+  <p class="map"><b>01 quality</b> · 02 people · 03 hiring</p>
+  <p class="pull">Building is cheap. Proving it works isn't.</p>
+</section>
+
+<section class="slide" data-n="Reading, understanding and taking responsibility for code costs as much as it always did.">
+  <img class="pic" src="img/05-reading.png" alt="A person buried in a mountain of code pages">
+  <p class="hand red" style="font-size:2.4cqw;margin-top:-2cqw">page 1 of 4,812</p>
+  <h1>Reading code is <span class="red">not.</span></h1>
+</section>
+
+<section class="slide" data-n="10x the code, still one reviewer (in 2020 there were four others). Two ways out: review smarter, and test better. Both matter equally.">
+  <div class="fig"><img class="pic" src="img/06-funnel.png" alt="Agents pour code into a funnel, one reviewer at the bottom">
+    <span class="lab orange" style="left:92%;top:12%">10× code</span>
+    <span class="lab red" style="left:75%;bottom:8%">1× reviewer</span></div>
+  <h2>Review is the new <span class="hl">bottleneck.</span></h2>
+  <p class="sub">two ways out: review smarter · test better</p>
+</section>
+
+<section class="slide" data-n="REVIEW. Problem: you can't read it all, so you lean on how it looks. AI code is confident and pretty; the bugs are behind the facade.">
+  <div class="fig"><img class="pic" src="img/07-looks-right.png" alt="A pretty house facade that is only a propped-up film set">
+    <span class="lab blue" style="right:100%;top:45%">looks right</span>
+    <span class="lab red" style="left:98%;top:30%">is right?</span></div>
+  <h1>Looks right <span class="red">≠</span> is right.</h1>
+</section>
+
+<section class="slide" data-n="The turn: stop reading lines. Check whether it builds the right thing.">
+  <img class="pic" src="img/09-intent.png" alt="Ignoring the code scroll, looking at the goal through a telescope">
+  <h2><s>reviewing lines</s></h2>
+  <h1>reviewing <span class="hl">intent</span></h1>
+</section>
+
+<section class="slide" data-n="Who does what: agents do the first pass on the lines, the human owns the call.">
+  <img class="pic" src="img/25-agents-check.png" alt="Robots inspect each other in a row, a person holds the final stamp">
+  <h2>Agents check agents.<br><span class="hl">Humans own</span> the judgment.</h2>
+</section>
+
+<section class="slide" data-n="The cheapest place to spend your judgment is the spec, before any code exists. The hinge: you review against the spec, and the tests come from it. Seed: a spec is only as good as your grasp of the customer. Hold that thought.">
+  <div class="fig"><img class="pic" src="img/10-shift-left.png" alt="A small push on the spec end of a lever lifts a mountain of build boxes">
+    <span class="lab red" style="right:100%;top:55%">spec</span>
+    <span class="lab muted" style="left:100%;top:35%">build</span></div>
+  <p class="sub"><span class="red">spec</span> → plan → build → verify</p>
+  <h2>Quality moves <span class="hl">left.</span></h2>
+</section>
+
+<section class="slide" data-n="TESTING. Problem: the same agent writes the code and the tests, so they're always green. assert(true), everything mocked. (TODO: own example)">
+  <div class="fig"><img class="pic" src="img/08-tester.png" alt="A robot grades its own report card in a mirror">
+    <span class="lab blue" style="right:96%;top:30%">tests 47/47 ✓</span>
+    <span class="lab red" style="left:96%;top:55%">assert(true)</span></div>
+  <h2>Who tests the <span class="hl">tester?</span></h2>
+</section>
+
+<section class="slide" data-n="The answer: two heads. The spec produces the code and, separately, the tests (another agent, or acceptance criteria you own). Then a green test is evidence, not an echo.">
+  <h2>Tests come from the <span class="hl">spec,</span><br>not the code.</h2>
+  <div style="display:flex;align-items:center;gap:3cqw">
+    <span class="red hand" style="font-size:6cqw">spec</span>
+    <div class="rows" style="gap:.8cqw 3cqw">
+      <span class="orange">→ code</span><span class="sub">agent A</span>
+      <span class="orange">→ tests</span><span class="sub">agent B · you</span>
+    </div>
+  </div>
+  <p class="sub"><s>code → tests</s> &nbsp;two heads, independent evidence</p>
+</section>
+
+<section class="slide" data-n="And test from the outside. Unit tests come from the same head as the code; integration, e2e and UI tests check what the user sees. The old ice-cream-cone anti-pattern is fine now: agents write and maintain e2e tests cheaply.">
+  <h2>The test pyramid <span class="hl">flips.</span></h2>
+  <div class="pyr">
+    <div style="width:50cqw;background:var(--hl)">UI · e2e</div>
+    <div style="width:34cqw;background:var(--peach)">integration</div>
+    <div style="width:14cqw;border-style:dashed;color:var(--muted)">unit</div>
+  </div>
+  <p class="sub">test what the user sees, not what the agent wrote</p>
+</section>
+
+<section class="slide" data-n="The payoff: tests don't only prove things to you, they steer the agent. Write, run, red, fix, without you in the loop. Fast, realistic, unmocked loop = better code. Invest in the loop, not the review.">
+  <img class="pic" src="img/35-loop.png" alt="An agent jogs around a circular track: write, run, red, fix">
+  <h2>Tests are the agent's <span class="hl">feedback loop.</span></h2>
+  <p class="sub">better loop → better code</p>
+</section>
+
+<section class="slide" data-n="Close of part 1. Trust = human judgment (review) + evidence (tests), card by card. Bridge: tests tell you it's built right. Only people tell you it's the right thing.">
+  <img class="pic" src="img/11-trust.png" alt="A robot zooms past while a person builds a bridge card by card">
+  <h2>Speed is free. <span class="red">Trust</span> is earned.</h2>
+</section>
+
+<!-- ============ 02 PEOPLE: build the right thing ============ -->
+<section class="slide sec" data-n="Part 2: people. The team shrank.">
+  <div class="num">02</div><h1>People</h1>
+  <p class="map">01 quality · <b>02 people</b> · 03 hiring</p>
+  <p class="pull">Tests tell you it's built right. Only people tell you it's the right thing.</p>
+</section>
+
+<section class="slide" data-n="Setup: the five from 2020 are five islands now, each doing the whole job alone. Two consequences: fewer roles around you (A) and fewer peers next to you (B).">
+  <div class="fig"><img class="pic" src="img/12-islands.png" alt="Three separate islands, one person and agents on each">
+    <span class="lab red" style="left:30%;top:2%">no bridges?</span></div>
+  <h2>Everyone on their own <span class="hl">island.</span></h2>
+  <p class="sub">fewer roles around you · fewer peers next to you</p>
+</section>
+
+<section class="slide" data-n="A. FEWER ROLES. The PM, the BA, the designer, the lead, the account manager: those roles are gone from around you. You wear every hat now.">
+  <img class="pic" src="img/21-thrives.png" alt="Wearing a stack of four hats while directing two agents">
+  <h2>You wear <span class="hl">every hat</span> now.</h2>
+  <p class="sub">PM · designer · analyst · seller · engineer</p>
+</section>
+
+<section class="slide" data-n="The layers that thinned out were the wall between customer and engineer. Now you do the talking, like a forward-deployed engineer. (TODO: Apex example where an engineer worked directly with the customer)">
+  <h2>No wall in between.</h2>
+  <div style="display:flex;align-items:center;gap:4cqw">
+  <img class="pic" style="height:20cqw" src="img/26-no-wall.png" alt="An engineer and a customer shake hands over a knocked-down wall">
+  <div class="rows" style="grid-template-columns:auto;font-size:2.6cqw">
+    <s style="white-space:nowrap">customer → PM → lead → dev</s>
+    <span>customer <span class="orange">↔</span> <span class="hl">engineer</span></span>
+    <p class="sub">you do the talking now</p>
+  </div>
+  </div>
+</section>
+
+<section class="slide" data-n="Product sense. Callback to part 1: this is where the spec comes from. Agents build the wrong thing fast, and applaud. Agency/B2B: the client often doesn't know what they need, helping them find it IS the job. B2C: no customer in the room, be the user. (TODO: Apex story where talking to the client changed what got built)">
+  <span class="from">← 01 quality</span>
+  <img class="pic" src="img/37-what-to-build.png" alt="An engineer and a customer sketch on one napkin while agents wait with toolboxes">
+  <h2>Figure out <span class="hl">what to build,</span> together.</h2>
+  <p class="sub">agency · B2B: help them find it &nbsp;·&nbsp; B2C: be the user</p>
+</section>
+
+<section class="slide" data-n="So communication and product sense weigh as much as coding and system design. Listen, explain, sell, present. Not extra: the job.">
+  <img class="pic" src="img/38-balance.png" alt="A level balance scale: code and systems on one side, communication and product on the other">
+  <h2>Communication is a <span class="hl">hard skill.</span></h2>
+  <p class="sub">listen · explain · sell · present</p>
+</section>
+
+<section class="slide" data-n="B. FEWER PEERS. With all those hats on, who tells you how you're doing? Not the agents: they agree with everything, even square wheels.">
+  <img class="pic" src="img/13-yes-bot.png" alt="Robots applaud a bicycle with square wheels: You're absolutely right!">
+  <h2>Agents never <span class="hl">push back.</span></h2>
+</section>
+
+<section class="slide" data-n="Feedback on YOUR work and growth, not the product. No peer to review with, no lead to tell you. Callback: the agents got a feedback loop for their code. You lost yours.">
+  <span class="from">← 01 quality</span>
+  <img class="pic" src="img/14-feedback.png" alt="Peering into an empty mailbox with a cobweb">
+  <h2>Where does <span class="hl">feedback</span> come from?</h2>
+  <p class="sub">on your work · on your growth</p>
+</section>
+
+<section class="slide" data-n="It hits juniors hardest. They learned by looking over a senior's shoulder. Who do they watch now?">
+  <img class="pic" src="img/16-junior.png" alt="A junior peeks over an empty chair; only agents inside a laptop">
+  <h2>Juniors learn by <span class="hl">watching.</span></h2>
+  <p class="sub" style="font-size:2.6cqw">Who do they watch now?</p>
+</section>
+
+<section class="slide" data-n="More productive than ever, but only the machines clap. Is it worth it? The turn: what do we do?">
+  <img class="pic" src="img/18-lonely.png" alt="Holding a shipped trophy while only robots clap">
+  <h2>Productive. <span class="blue">But lonely.</span></h2>
+</section>
+
+<section class="slide" data-n="Human contact no longer happens by itself; bring it back on purpose. Pair with humans, demo what you built, review as a conversation, give juniors a human mentor. (TODO: Apex example)">
+  <h2>Bring people back, <span class="hl">on purpose.</span></h2>
+  <div style="display:flex;align-items:center;gap:4cqw">
+  <img class="pic" style="height:24cqw" src="img/19-together.png" alt="Two people high-five over one laptop">
+  <div class="rows" style="grid-template-columns:auto">
+    <div><span class="orange">→</span> pair with humans</div>
+    <div><span class="orange">→</span> demo what you built</div>
+    <div><span class="orange">→</span> review as conversation</div>
+    <div><span class="orange">→</span> mentor juniors</div>
+  </div>
+  </div>
+</section>
+
+<section class="slide" data-n="Close of part 2. Bridge: the job changed, so who do we hire?">
+  <h1>Agents scale <span class="blue">output.</span><br>People scale <span class="hl">people.</span></h1>
+</section>
+
+<!-- ============ 03 HIRING: people who can do both ============ -->
+<section class="slide sec" data-n="Part 3: hiring.">
+  <div class="num">03</div><h1>Hiring</h1>
+  <p class="map">01 quality · 02 people · <b>03 hiring</b></p>
+  <p class="pull">The job changed. So does the hire.</p>
+</section>
+
+<section class="slide" data-n="Hiring comes last because its signals come from the first two parts. Three from quality, three from people, scored equally. The corner tags show where each one comes from. (TODO: who worked out for us?)">
+  <h2>Hire for <span class="hl">what breaks.</span></h2>
+  <div class="rows">
+    <span><span class="red hand">01</span> quality</span><span>→ judgment · writing · testing</span>
+    <span><span class="red hand">02</span> people</span><span>→ product sense · communication · push back</span>
+  </div>
+  <p class="sub">scored equally</p>
+</section>
+
+<section class="slide" data-n="The old question was: can you code? The new one: can you judge what's good? Counterpart of looks right ≠ is right.">
+  <span class="from">← 01 quality</span>
+  <img class="pic" style="height:24cqw" src="img/20-judge.png" alt="A candidate reaches past the keyboard for the compass">
+  <h2><s>Can you code?</s></h2>
+  <h1>Can you <span class="hl">judge?</span></h1>
+</section>
+
+<section class="slide" data-n="Quality moved left; the spec is the biggest lever. Clear writers are clear thinkers. Interview: have them write down what they'd build before building.">
+  <span class="from">← 01 quality</span>
+  <img class="pic" src="img/28-clear-writing.png" alt="A messy note builds a crooked house, a clear note builds a straight one">
+  <h2>Clear writing = <span class="hl">clear thinking.</span></h2>
+</section>
+
+<section class="slide" data-n="Testing as a signal. Interview: before they build, ask them to design the tests. Which flows matter, what breaks it, how will the agent know it's done?">
+  <span class="from">← 01 quality</span>
+  <h2>How would you <span class="hl">prove</span> it works?</h2>
+  <div class="rows" style="grid-template-columns:auto">
+    <div><span class="orange">→</span> which user flows?</div>
+    <div><span class="orange">→</span> what would break it?</div>
+    <div><span class="orange">→</span> how will the agent know?</div>
+  </div>
+  <p class="sub">before they build it</p>
+</section>
+
+<section class="slide" data-n="Product sense as a signal. Interview: hand them a deliberately vague brief and watch which questions they ask before they build.">
+  <span class="from">← 02 people</span>
+  <img class="pic" src="img/39-questions.png" alt="A candidate asks questions about a sticky note that says make it better">
+  <h2>Can you find <span class="hl">what to build?</span></h2>
+</section>
+
+<section class="slide" data-n="Communication as a signal. No wall between customer and engineer: can you explain what you built and why, to a customer?">
+  <span class="from">← 02 people</span>
+  <img class="pic" src="img/30-explain.png" alt="Sketching on a napkin for a customer, the code scroll ignored on the floor">
+  <h2>Can you <span class="hl">explain</span> it?</h2>
+  <p class="sub" style="font-size:2.6cqw">to a customer, not a compiler</p>
+</section>
+
+<section class="slide" data-n="Agents never push back, so hire people who do. Interview: pitch a bad idea and see if they speak up.">
+  <span class="from">← 02 people</span>
+  <img class="pic" src="img/29-push-back.png" alt="A person stops robots from pushing a box off a cliff">
+  <h2>Will you <span class="hl">push back?</span></h2>
+  <p class="sub" style="font-size:2.6cqw">the agents won't</p>
+</section>
+
+<section class="slide" data-n="Counterpart of the juniors slide: if we pull out the bottom rungs, where do future seniors come from? Hire juniors too, on purpose, with a human mentor.">
+  <span class="from">← 02 people</span>
+  <div class="fig"><img class="pic" src="img/32-ladder.png" alt="A ladder with missing lower rungs, a junior at the bottom, a senior at the top">
+    <span class="lab red" style="right:100%;top:62%">missing rungs</span></div>
+  <h2>Where do <span class="hl">seniors</span> come from?</h2>
+</section>
+
+<section class="slide" data-n="The interview, part one: allow AI and watch how they use it. This tests the quality signals: what they ask, what they verify, whether they make the agent run its own checks, when they refuse its answer.">
+  <span class="from">tests 01</span>
+  <img class="pic" src="img/23-interview.png" alt="An interviewer watches a candidate work with an agent">
+  <p class="sub" style="font-size:2.6cqw">Allow AI in the interview.</p>
+  <h2>Watch <span class="hl">how</span> they use it.</h2>
+</section>
+
+<section class="slide" data-n="The interview, part two: they present what they built as if to a customer. This tests the people signals. Judgment and communication show up at the same time.">
+  <span class="from">tests 02</span>
+  <img class="pic" src="img/31-present.png" alt="A candidate presents a small product to an interviewer">
+  <p class="sub">and then</p>
+  <h2>Let them <span class="hl">present</span> it.</h2>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="slide" data-n="The loop. Quality needs people: tests can't tell you it's the right thing. Shrinking teams change the hire: more hats, less feedback. And who you hire decides your quality: they write the specs, judge the output, build the loops. Move one, the others change course.">
+  <div style="display:flex;align-items:center;gap:4cqw">
+    <img class="pic" style="height:24cqw" src="img/34-orbits.png" alt="Three planets pulling on each other with tangled orbits">
+    <div class="rows" style="grid-template-columns:auto;font-size:2.6cqw;gap:1.6cqw">
+      <span><span class="red hand">01 → 02</span> built right ≠ the right thing</span>
+      <span><span class="red hand">02 → 03</span> more hats, less feedback</span>
+      <span><span class="red hand">03 → 01</span> who you hire is your quality</span>
+    </div>
+  </div>
+  <h2>No stable solution. <span class="hl">Keep balancing.</span></h2>
+</section>
+
+<section class="slide" data-n="The talk in one slide.">
+  <h2 class="muted">Code is cheap.</h2>
+  <div class="rows" style="font-size:3.6cqw">
+    <span class="red hand">01</span><span>proving it works</span>
+    <span class="red hand">02</span><span>knowing what to build</span>
+    <span class="red hand">03</span><span>the people who can do both</span>
+  </div>
+  <h2>are <span class="hl">not.</span></h2>
+</section>
+
+<section class="slide" data-n="Thank you, questions.">
+  <img class="pic" src="img/24-thanks.png" alt="Two people and three agents wave goodbye">
+  <h1>Thank you.</h1>
+  <p class="sub">akos.gg</p>
+</section>
+
+</main>
+
+<script>
+// missing image → dashed placeholder (for shots not generated yet)
+document.querySelectorAll('img').forEach(im=>{
+  const ph=()=>{const d=document.createElement('div');d.className='ph';d.textContent='image: '+im.getAttribute('src');im.replaceWith(d)};
+  if(im.complete&&!im.naturalWidth) ph(); else im.addEventListener('error',ph);
+});
+const S=[...document.querySelectorAll('.slide')], pg=document.getElementById('pg'), notes=document.getElementById('notes');
+let i=0;
+function go(n){
+  i=Math.max(0,Math.min(S.length-1,n));
+  S.forEach((s,k)=>s.classList.toggle('on',k===i));
+  pg.textContent=String(i+1).padStart(2,'0')+' / '+S.length;
+  notes.textContent=S[i].dataset.n||'';
+  history.replaceState(null,'','#'+(i+1));
+}
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)) go(i+1);
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) go(i-1);
+  else if(e.key==='Home') go(0);
+  else if(e.key==='End') go(S.length-1);
+  else if(e.key==='n') document.body.classList.toggle('notes');
+  else if(e.key==='f') document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+});
+addEventListener('click',e=>go(e.clientX<innerWidth/3?i-1:i+1));
+go((+location.hash.slice(1)||1)-1);
+</script>
+</body>
+</html>

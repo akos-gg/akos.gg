@@ -1,9 +1,57 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import hero from "../assets/hero.png";
+import talkCover from "../assets/talk-cover.png";
+
+// TODO: fill in before merging
+const links = [
+  { label: "github", href: "https://github.com/akos-gg" },
+  { label: "linkedin", href: "https://www.linkedin.com/in/TODO" },
+  { label: "email", href: "mailto:TODO@akos.gg" },
+];
 ---
 
 <Layout>
-  <main class="grid min-h-screen place-items-center">
-    <h1 class="text-4xl font-bold">akos.gg</h1>
+  <main class="mx-auto flex min-h-screen max-w-2xl flex-col items-center gap-10 px-4 py-16 text-center">
+    <Image
+      src={hero}
+      alt="A black bean-shaped figure conducting a group of small blue robots"
+      widths={[480, 960]}
+      sizes="(max-width: 640px) 100vw, 640px"
+      class="w-full max-w-xl mix-blend-multiply"
+      loading="eager"
+    />
+
+    <section class="flex flex-col gap-4">
+      <h1 class="text-5xl leading-tight sm:text-6xl">Hi, I'm <span class="hl">Ákos.</span></h1>
+      <p class="text-xl font-light text-muted">
+        I build software with one human and many agents.
+      </p>
+    </section>
+
+    <nav class="font-hand flex flex-wrap justify-center gap-x-8 gap-y-2 text-3xl">
+      {links.map((l) => (
+        <a href={l.href} class="underline decoration-orange decoration-2 underline-offset-4 hover:text-orange">
+          {l.label}
+        </a>
+      ))}
+    </nav>
+
+    <a
+      href="/talks/one-human-many-agents/"
+      class="group mt-6 flex flex-col items-center gap-2 rounded-[1.4rem_.6rem_1.2rem_.5rem] border-2 border-ink p-6 hover:-rotate-1 transition-transform"
+    >
+      <span class="font-hand text-2xl text-red">talk</span>
+      <Image
+        src={talkCover}
+        alt="A figure juggling three planets on tangled orbits while robots surf on them"
+        widths={[360, 720]}
+        sizes="360px"
+        class="w-72 mix-blend-multiply"
+      />
+      <span class="text-2xl">Software’s <span class="hl">Three-Body</span> Problem</span>
+      <span class="font-light text-muted">quality · people · hiring</span>
+    </a>
   </main>
 </Layout>
